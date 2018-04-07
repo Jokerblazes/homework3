@@ -20,6 +20,10 @@ public class Person {
 
 
     public String introduce() {
+        return basicIntroduce();
+    }
+
+    protected String basicIntroduce() {
         return "My name is " + name + ". I am " + age + " years old.";
     }
 }
