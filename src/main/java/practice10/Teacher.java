@@ -1,6 +1,8 @@
 package practice10;
 
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Teacher extends Person {
 
@@ -27,8 +29,11 @@ public class Teacher extends Person {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(basicIntroduce())
                     .append(" I teach Class");
-            classes.forEach(klass -> stringBuilder.append(" ")
-                    .append(klass.getNumber()).
+            //由于HashSet并不会根据大小排序，所以先取出数值排序，再返回
+            Set<Integer> set = new HashSet<>();
+            classes.forEach(klass -> set.add(klass.getNumber()));
+            set.stream().sorted().forEach(integer -> stringBuilder.append(" ")
+                    .append(integer).
                             append(","));
             stringBuilder.deleteCharAt(stringBuilder.length() - 1)
                     .append(".");
@@ -48,6 +53,11 @@ public class Teacher extends Person {
     }
 
     public boolean isTeaching(Student student) {
-        return classes.contains(student.getKlass());
+        for (Klass klass : classes) {
+            if (klass.isIn(student)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

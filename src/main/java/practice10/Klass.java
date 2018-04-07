@@ -17,6 +17,15 @@ public class Klass {
         return "Class " + number;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj))
+            return true;
+        if (!(obj instanceof Klass))
+            return false;
+        return number == ((Klass) obj).getNumber();
+    }
+
     public void assignLeader(Student student) {
         if (this.equals(student.getKlass()))
             this.leader = student;
@@ -30,5 +39,10 @@ public class Klass {
 
     public void appendMember(Student student) {
         student.setKlass(this);
+    }
+
+
+    public boolean isIn(Student student) {
+        return this.equals(student.getKlass());
     }
 }
